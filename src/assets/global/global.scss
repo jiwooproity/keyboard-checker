@@ -23,6 +23,14 @@
     --key-board-textarea-background: white;
     --key-board-reset-linear-hover-start: #c4c4c4;
     --key-board-reset-linear-hover-end: rgb(141, 141, 141);
+    --key-active-linear-start: rgb(100, 227, 255);
+    --key-active-linear-end: rgb(140, 119, 227);
+    --key-active-linear-before-start: rgb(255, 255, 255);
+    --key-active-linear-before-end: rgb(199, 209, 234);
+    --key-press-linear-start: rgb(255, 154, 76);
+    --key-press-linear-end: rgb(227, 52, 52);
+    --key-press-linear-before-start: rgb(255, 255, 255);
+    --key-press-linear-before-end: rgb(246, 215, 197);
 }
   
 :root[color-theme='dark'] {
@@ -48,6 +56,14 @@
     --key-board-textarea-background: #0005;
     --key-board-reset-linear-hover-start: #171717;
     --key-board-reset-linear-hover-end: rgb(23, 23, 23);
+    --key-active-linear-start: rgb(149, 122, 195);
+    --key-active-linear-end: rgb(124, 49, 164);
+    --key-active-linear-before-start: rgb(255, 255, 255);
+    --key-active-linear-before-end: rgb(214, 192, 231);
+    --key-press-linear-start: rgb(255, 238, 131);
+    --key-press-linear-end: rgb(255, 180, 75);
+    --key-press-linear-before-start: rgb(255, 255, 255);
+    --key-press-linear-before-end: rgb(246, 236, 197);
 }
 
 * {

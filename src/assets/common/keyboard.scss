@@ -168,10 +168,10 @@
         display: flex;
 
         .active {
-            background: linear-gradient(180deg, rgb(100, 227, 255), rgb(140, 119, 227));
+            background: linear-gradient(180deg, var(--key-active-linear-start), var(--key-active-linear-end));
     
             &::before {
-                background: linear-gradient(90deg, rgb(255, 255, 255), rgb(199, 209, 234));
+                background: linear-gradient(90deg, var(--key-active-linear-before-start), var(--key-active-linear-before-end));
             }
 
             span {
@@ -180,7 +180,7 @@
         }
     
         .press {
-            background: linear-gradient(180deg, rgb(255, 154, 76), rgb(227, 52, 52));
+            background: linear-gradient(180deg, var(--key-press-linear-start), var(--key-press-linear-end));
             color: #000000;
     
             &::before {
@@ -190,7 +190,7 @@
                 left: 3px;
                 bottom: 6px;
                 right: 5px;
-                background: linear-gradient(90deg, rgb(255, 255, 255), rgb(246, 215, 197));
+                background: linear-gradient(90deg, var(--key-press-linear-before-start), var(--key-press-linear-before-end));
                 border-radius: 5px;
                 box-shadow: -5px -5px 5px rgba(235, 235, 235, 0.25);
                 border-left: 1px solid rgba(188, 188, 188, 0.267);
@@ -264,10 +264,10 @@
         justify-content: space-between;
     
         .active {
-            background: linear-gradient(180deg, rgb(100, 227, 255), rgb(140, 119, 227));
+            background: linear-gradient(180deg, var(--key-active-linear-start), var(--key-active-linear-end));
     
             &::before {
-                background: linear-gradient(90deg, rgb(255, 255, 255), rgb(199, 209, 234));
+                background: linear-gradient(90deg, var(--key-active-linear-before-start), var(--key-active-linear-before-end));
             }
 
             span {
@@ -276,7 +276,7 @@
         }
     
         .press {
-            background: linear-gradient(180deg, rgb(255, 154, 76), rgb(227, 52, 52)); 
+            background: linear-gradient(180deg, var(--key-press-linear-start), var(--key-press-linear-end));
             color: #000000;
     
             &::before {
@@ -286,7 +286,7 @@
                 left: 3px;
                 bottom: 6px;
                 right: 5px;
-                background: linear-gradient(90deg, rgb(255, 255, 255), rgb(246, 215, 197));
+                background: linear-gradient(90deg, var(--key-press-linear-before-start), var(--key-press-linear-before-end));
                 border-radius: 5px;
                 box-shadow: -5px -5px 5px rgba(235, 235, 235, 0.25);
                 border-left: 1px solid rgba(188, 188, 188, 0.267);
@@ -414,7 +414,7 @@
         }
 
         &:active {
-            background: linear-gradient(180deg, rgb(255, 154, 76), rgb(227, 52, 52)); 
+            background: linear-gradient(180deg, var(--key-press-linear-start), var(--key-press-linear-end));
     
             &::before {
                 content: '';
@@ -423,7 +423,7 @@
                 left: 3px;
                 bottom: 6px;
                 right: 5px;
-                background: linear-gradient(90deg, rgb(255, 255, 255), rgb(246, 215, 197));
+                background: linear-gradient(90deg, var(--key-press-linear-before-start), var(--key-press-linear-before-end));
                 border-radius: 5px;
                 box-shadow: -5px -5px 5px rgba(235, 235, 235, 0.25);
                 border-left: 1px solid rgba(188, 188, 188, 0.267);
