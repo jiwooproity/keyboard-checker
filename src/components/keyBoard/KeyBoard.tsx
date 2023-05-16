@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { KeyDataIF } from "@/utils/keyInterface";
 import { getKeyCapInterface } from "@/utils/keyInterface";
 
-import { Button } from "@/common";
+import { Button, TextArea } from "@/common";
 import { KeyBoardRow } from "@/components";
 
 interface ComponentPropsType {
@@ -70,7 +70,7 @@ const KeyBoard = ({ state, text, onChangeText, onKeyDown, onKeyUp, onReset, onTe
             </div>
             <div className="keyboard_scan-box">
                 <div className="keyboard_memo_area">
-                    <textarea value={text} onFocus={onFocus} onBlur={onBlur} onChange={onChangeText}/>
+                    <TextArea value={text} onBlur={onBlur} onFocus={onFocus} onChange={onChangeText} />
                 </div>
                 <div id="keyboard_scan-rate_area" className="keyboard_scan-rate_area">
                     <ul id="keyboard_scan-rate_ul" className="keyboard_scan-rate_ul"></ul>
