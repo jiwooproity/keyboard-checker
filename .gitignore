@@ -4,3 +4,6 @@ node_modules
 # build, dist
 /build
 /dist
+
+# macOS File
+.DS_Store
