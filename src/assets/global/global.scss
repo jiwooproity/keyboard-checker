@@ -1,4 +1,4 @@
-@import '../common/container.scss', '../common/keyboard.scss', '../common/input.scss', '../common/theme.scss';
+@import '../common/container.scss', '../common/keyboard.scss', '../common/input.scss', '../common/navigation.scss';
 
 :root[color-theme='light'] {
     --main-background: rgb(246, 246, 246);
@@ -31,6 +31,8 @@
     --key-press-linear-end: rgb(227, 52, 52);
     --key-press-linear-before-start: rgb(255, 255, 255);
     --key-press-linear-before-end: rgb(246, 215, 197);
+    --key-press-scan-rate-log-bg: rgba(25, 25, 25, 0.997);
+    --key-press-scan-rate-log-color: rgb(255, 255, 255);
 }
   
 :root[color-theme='dark'] {
@@ -64,6 +66,8 @@
     --key-press-linear-end: rgb(255, 180, 75);
     --key-press-linear-before-start: rgb(255, 255, 255);
     --key-press-linear-before-end: rgb(246, 236, 197);
+    --key-press-scan-rate-log-bg: rgb(255, 255, 255);
+    --key-press-scan-rate-log-color: rgba(25, 25, 25, 0.997);
 }
 
 * {

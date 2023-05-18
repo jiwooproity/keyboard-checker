@@ -1,13 +1,14 @@
 import { useState } from "react";
 
 import CheckBox from "@/common/CheckBox";
-import { KeyBoardControl } from "@/components";
+import { KeyBoardControl, Log } from "@/components";
 
 import lightbulb from "@/assets/svg/lightbulb.svg";
 import darkbulb from "@/assets/svg/darkbulb.svg";
 
 const Container = () => {
     const [theme, setTheme] = useState<boolean>(false);
+    const [scanRate, setScanRate] = useState<string>('0.0Hz');
 
     const onChangeTheme = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.checked) {
@@ -22,14 +23,15 @@ const Container = () => {
     return (
         <div className="container">
             <div className="wrapper">
-                <div className="theme_container">
+                <div className="navigation_container">
                     <CheckBox id="theme" className="checkbox" checked={theme} hidden={true} onChange={onChangeTheme}/>
                     <label htmlFor="theme">
                         <img className="theme_img" src={theme ? darkbulb : lightbulb}/>
                     </label>
+                    <Log scanRate={scanRate} />
                 </div>
                 <div className="keyboard_container">
-                    <KeyBoardControl />
+                    <KeyBoardControl setScanRate={setScanRate} />
                 </div>
             </div>
         </div>

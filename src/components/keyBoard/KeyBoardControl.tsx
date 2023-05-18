@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { KeyBoard } from "@/components";
 
 import { convertChar } from "@/utils/convertChar";
@@ -7,15 +7,20 @@ import { getKeyName } from "@/utils/keyNames";
 const SLEFT = 'ShiftLeft' as const;
 const SRIGHT = 'ShiftRight' as const;
 
+interface KeyBoardControlPropsType {
+    setScanRate: Dispatch<SetStateAction<string>>;
+}
+
 interface ChangeActiveIF {
     code: string;
     active: boolean;
 }
 
+let bestKeyTime = 10000;
 let keyPerformance: { [key: string]: number } = {};
 let inputFocus: boolean = false;
 
-const KeyBoardControl = (): JSX.Element => {
+const KeyBoardControl = ({ setScanRate }: KeyBoardControlPropsType): JSX.Element => {
     const [text, setText] = useState<string>('');
     const [pressedStatus, setPressedStatus] = useState<{ [key: string]: boolean }>({});
 
@@ -40,7 +45,7 @@ const KeyBoardControl = (): JSX.Element => {
         inputFocus = false;
     }
     
-    const onKeyDown = (e: KeyboardEvent) => { 
+    const onKeyDown = (e: KeyboardEvent) => {
         if(!inputFocus) {
             e.preventDefault();
         }
@@ -56,13 +61,18 @@ const KeyBoardControl = (): JSX.Element => {
         onChangeActive({ code: e.code, active: true });
     }
 
-    const onKeyUp = (e: KeyboardEvent) => {        
+    const onKeyUp = (e: KeyboardEvent) => {
         if(!inputFocus) {
             e.preventDefault();
 
             let keyName = getKeyName(e.code);
             let upTime = performance.now();
-            let heldTime = Math.ceil(upTime - keyPerformance[e.code]);       
+            let heldTime = Math.ceil(upTime - keyPerformance[e.code]);
+
+            bestKeyTime = Math.min(bestKeyTime, heldTime);
+            let scanRate = Math.min(1000 / (bestKeyTime), 1000);
+
+            setScanRate(`${scanRate}Hz`);
 
             const createKeyTextElement = document.createElement('span');
             const createKeyDummyElement = document.createElement('p');
