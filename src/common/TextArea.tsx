@@ -1,4 +1,4 @@
-import { ChangeEvent } from "react";
+import { memo, ChangeEvent } from "react";
 
 interface TextAreaPropsType {
     value: string,
@@ -17,4 +17,4 @@ TextArea.defaultProps = {
     value: "",
 }
 
-export default TextArea;
+export default memo(TextArea);

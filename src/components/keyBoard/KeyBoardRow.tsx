@@ -6,14 +6,14 @@ import { KeyDataIF } from "@/utils/keyInterface";
 
 interface RowComponentTypes {
     data: KeyDataIF[];
-    state: { [key: string]: boolean };
+    pressed: { [key: string]: boolean };
     className?: string;
     style?: CSSProperties;
 }
 
-const KeyBoardRow = ({ state, data, className, style }: RowComponentTypes): JSX.Element => {
+const KeyBoardRow = ({ pressed, data, className, style }: RowComponentTypes): JSX.Element => {
     const KeyLineElement = (value: KeyDataIF, index: number): JSX.Element => {
-        const keyPressed = state[value.keyCode] || false;
+        const keyPressed = pressed[value.keyCode] || false;
 
         return (
             <Button

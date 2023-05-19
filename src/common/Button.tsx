@@ -1,3 +1,5 @@
+import { memo } from "react";
+
 type ButtonPropsType = {
     id?: string;
     key?: number;
@@ -20,4 +22,4 @@ Button.defaultProps = {
     className: "",
 }
 
-export default Button;
+export default memo(Button);

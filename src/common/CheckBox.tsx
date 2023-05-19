@@ -1,4 +1,4 @@
-import { ChangeEvent } from "react";
+import { ChangeEvent, memo } from "react";
 
 interface CheckBoxPropsType {
     id?: string,
@@ -18,4 +18,4 @@ CheckBox.defaultProps = {
     checked: false,
 }
 
-export default CheckBox;
+export default memo(CheckBox);

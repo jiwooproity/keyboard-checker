@@ -1,31 +1,39 @@
-import { memo, useEffect } from "react";
+import { ReactNode, useEffect, useMemo, memo } from "react";
 
 import { KeyDataIF } from "@/utils/keyInterface";
 import { getKeyCapInterface } from "@/utils/keyInterface";
 
-import { Button, TextArea } from "@/common";
 import { KeyBoardRow } from "@/components";
 
 interface ComponentPropsType {
-    state: { [key: string]: boolean };
-    text: string;
-    onChangeText: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
-    onKeyDown: (e: KeyboardEvent) => void;
-    onKeyUp: (e: KeyboardEvent) => void;
-    onReset: () => void;
-    onTextReset: () => void;
-    onFocus: () => void;
-    onBlur: () => void;
+    pressed: { [key: string]: boolean },
+    children: ReactNode,
+    onKeyDown: (e: KeyboardEvent) => void,
+    onKeyUp: (e: KeyboardEvent) => void,
 }
 
 const top = ['topLine', 'rightTop'] as const;
 const left = ['oneLine', 'twoLine', 'threeLine', 'fourLine', 'fiveLine'] as const;
 const right = ['rightOneLine', 'rightTwoLine', 'rightThreeLine', 'rightFourLine'] as const;
 
-const KeyBoard = ({ state, text, onChangeText, onKeyDown, onKeyUp, onReset, onTextReset, onFocus, onBlur }: ComponentPropsType): JSX.Element => {
-    const [topLine, rightTop]: KeyDataIF[][] = top.map(getKeyCapInterface);
-    const [oneLine, twoLine, threeLine, fourLine, fiveLine]: KeyDataIF[][] = left.map(getKeyCapInterface);
+const KeyBoard = ({ pressed, children, onKeyDown, onKeyUp }: ComponentPropsType): JSX.Element => {
+    const [leftTop, rightTop]: KeyDataIF[][] = top.map(getKeyCapInterface);
+    const [leftOneLine, leftTwoLine, leftThreeLine, leftFourLine, leftFiveLine]: KeyDataIF[][] = left.map(getKeyCapInterface);
     const [rightOneLine, rightTwoLine, rightThreeLine, rightFourLine]: KeyDataIF[][] = right.map(getKeyCapInterface);
+
+    const memoKeys = useMemo(() => ({
+        leftTop,
+        rightTop,
+        leftOneLine,
+        leftTwoLine,
+        leftThreeLine,
+        leftFourLine,
+        leftFiveLine,
+        rightOneLine,
+        rightTwoLine,
+        rightThreeLine,
+        rightFourLine
+    }), []);
 
     useEffect(() => {       
         document.addEventListener("keydown", onKeyDown);
@@ -42,44 +50,33 @@ const KeyBoard = ({ state, text, onChangeText, onKeyDown, onKeyUp, onReset, onTe
             <div className="keyboard_box">
                 <div className="keyboard_left-area">
                     <div className="keyboard_top">
-                        <KeyBoardRow className="keyboard_top_row"   state={state} data={topLine.filter((val) => val.keyCode === "Escape")} />
-                        <KeyBoardRow className="keyboard_top_row"   state={state} data={topLine.slice(1, 5)} />
-                        <KeyBoardRow className="keyboard_top_row"   state={state} data={topLine.slice(5, 9)} />
-                        <KeyBoardRow className="keyboard_top_row"   state={state} data={topLine.slice(9, 13)} />
+                        <KeyBoardRow className="keyboard_top_row"   pressed={pressed} data={memoKeys.leftTop.filter((val) => val.keyCode === "Escape")} />
+                        <KeyBoardRow className="keyboard_top_row"   pressed={pressed} data={memoKeys.leftTop.slice(1, 5)} />
+                        <KeyBoardRow className="keyboard_top_row"   pressed={pressed} data={memoKeys.leftTop.slice(5, 9)} />
+                        <KeyBoardRow className="keyboard_top_row"   pressed={pressed} data={memoKeys.leftTop.slice(9, 13)} />
                     </div>
                     <div className="keyboard_bottom">
-                        <KeyBoardRow className="keyboard_row one"   state={state} data={oneLine} />
-                        <KeyBoardRow className="keyboard_row two"   state={state} data={twoLine} />
-                        <KeyBoardRow className="keyboard_row three" state={state} data={threeLine} />
-                        <KeyBoardRow className="keyboard_row four"  state={state} data={fourLine} />
-                        <KeyBoardRow className="keyboard_row five"  state={state} data={fiveLine} />
+                        <KeyBoardRow className="keyboard_row one"   pressed={pressed} data={memoKeys.leftOneLine} />
+                        <KeyBoardRow className="keyboard_row two"   pressed={pressed} data={memoKeys.leftTwoLine} />
+                        <KeyBoardRow className="keyboard_row three" pressed={pressed} data={memoKeys.leftThreeLine} />
+                        <KeyBoardRow className="keyboard_row four"  pressed={pressed} data={memoKeys.leftFourLine} />
+                        <KeyBoardRow className="keyboard_row five"  pressed={pressed} data={memoKeys.leftFiveLine} />
                     </div>
                 </div>
                 <div className="keyboard_right-area">
                     <div className="keyboard_top">
-                        <KeyBoardRow className="keyboard_top_row"   state={state} data={rightTop} />
+                        <KeyBoardRow className="keyboard_top_row"   pressed={pressed} data={memoKeys.rightTop} />
                     </div>
                     <div className="keyboard_bottom">
-                        <KeyBoardRow className="keyboard_row one"   state={state} data={rightOneLine} />
-                        <KeyBoardRow className="keyboard_row two"   state={state} data={rightTwoLine} />
-                        <KeyBoardRow className="keyboard_row three" state={state} data={[]}/>
-                        <KeyBoardRow className="keyboard_row four"  state={state} data={rightThreeLine} style={{ width: '150px', justifyContent: 'center' }}/>
-                        <KeyBoardRow className="keyboard_row five"  state={state} data={rightFourLine} />
+                        <KeyBoardRow className="keyboard_row one"   pressed={pressed} data={memoKeys.rightOneLine} />
+                        <KeyBoardRow className="keyboard_row two"   pressed={pressed} data={memoKeys.rightTwoLine} />
+                        <KeyBoardRow className="keyboard_row three" pressed={pressed} data={[]}/>
+                        <KeyBoardRow className="keyboard_row four"  pressed={pressed} data={memoKeys.rightThreeLine} style={{ width: '150px', justifyContent: 'center' }}/>
+                        <KeyBoardRow className="keyboard_row five"  pressed={pressed} data={memoKeys.rightFourLine} />
                     </div>
                 </div>
             </div>
-            <div className="keyboard_scan-box">
-                <div className="keyboard_memo_area">
-                    <TextArea value={text} onBlur={onBlur} onFocus={onFocus} onChange={onChangeText} />
-                </div>
-                <div id="keyboard_scan-rate_area" className="keyboard_scan-rate_area">
-                    <ul id="keyboard_scan-rate_ul" className="keyboard_scan-rate_ul"></ul>
-                </div>
-            </div>
-            <div className="keyboard_button-area">
-                <Button className="text-reset btn" buttonText="Memo Reset" onClick={onTextReset}/>
-                <Button className="all-reset btn" buttonText="All Reset" onClick={onReset}/>
-            </div>
+            {children}
         </div>
     )
 }
