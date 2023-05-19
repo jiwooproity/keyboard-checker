@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction, useCallback, useMemo, useState } from "react";
 import { KeyBoard } from "@/components";
 
 import { convertChar } from "@/utils/convertChar";
@@ -24,28 +24,31 @@ const KeyBoardControl = ({ setScanRate }: KeyBoardControlPropsType): JSX.Element
     const [text, setText] = useState<string>('');
     const [pressedStatus, setPressedStatus] = useState<{ [key: string]: boolean }>({});
 
-    const onChangeText = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const memoizedText = useMemo(() => text, [text]);
+    const memoizedPressedStatus = useMemo(() => pressedStatus, [pressedStatus]);
+
+    const onChangeText = useCallback((e: React.ChangeEvent<HTMLTextAreaElement>) => {
         const value = e.target.value;
         setText(value);
-    }
+    }, []);
 
-    const onChangeActive = ({ code, active }: ChangeActiveIF) => {
+    const onChangeActive = useCallback(({ code, active }: ChangeActiveIF) => {
         const key = document.getElementById(code);
 
         if(key) {
             active ? key.classList.add('press') : key.classList.remove('press');
         }
-    }
+    }, []);
 
     const onFocus = () => {
         inputFocus = true;
-    }
+    };
 
     const onBlur = () => {
         inputFocus = false;
-    }
+    };
     
-    const onKeyDown = (e: KeyboardEvent) => {
+    const onKeyDown = useCallback((e: KeyboardEvent) => {
         if(!inputFocus) {
             e.preventDefault();
         }
@@ -59,9 +62,9 @@ const KeyBoardControl = ({ setScanRate }: KeyBoardControlPropsType): JSX.Element
         }
 
         onChangeActive({ code: e.code, active: true });
-    }
+    }, []);
 
-    const onKeyUp = (e: KeyboardEvent) => {
+    const onKeyUp = useCallback((e: KeyboardEvent) => {
         if(!inputFocus) {
             e.preventDefault();
 
@@ -109,24 +112,24 @@ const KeyBoardControl = ({ setScanRate }: KeyBoardControlPropsType): JSX.Element
         }
 
         keyPerformance[e.code] = null;
-    }
+    }, []);
 
     // 입력 활성화 초기화
-    const onReset = () => {
+    const onReset = useCallback(() => {
         setText('');
         setPressedStatus({});
         const getTimeAreaElement = document.querySelector('#keyboard_scan-rate_ul');
         getTimeAreaElement.textContent = '';
-    }
+    }, []);
 
-    const onTextReset = () => {
+    const onTextReset = useCallback(() => {
         setText('');
-    }
+    }, []);
 
     return (
         <KeyBoard
-            state={pressedStatus}
-            text={text}
+            state={memoizedPressedStatus}
+            text={memoizedText}
             onChangeText={onChangeText}
             onKeyDown={onKeyDown}
             onKeyUp={onKeyUp}

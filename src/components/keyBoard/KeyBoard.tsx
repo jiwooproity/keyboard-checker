@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { memo, useEffect } from "react";
 
 import { KeyDataIF } from "@/utils/keyInterface";
 import { getKeyCapInterface } from "@/utils/keyInterface";
@@ -84,4 +84,4 @@ const KeyBoard = ({ state, text, onChangeText, onKeyDown, onKeyUp, onReset, onTe
     )
 }
 
-export default KeyBoard;
+export default memo(KeyBoard);

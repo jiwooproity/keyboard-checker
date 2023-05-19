@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 
 import CheckBox from "@/common/CheckBox";
 import { KeyBoardControl, Log } from "@/components";
@@ -8,9 +8,12 @@ import darkbulb from "@/assets/svg/darkbulb.svg";
 
 const Container = () => {
     const [theme, setTheme] = useState<boolean>(false);
-    const [scanRate, setScanRate] = useState<string>('0.0Hz');
 
-    const onChangeTheme = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const [scanRate, setScanRate] = useState<string>('0.0Hz');
+    const memoizedScanRate = useMemo(() => scanRate, [scanRate]);
+    const onChangeScanRate = useCallback(setScanRate, []);
+
+    const onChangeTheme = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.checked) {
             document.documentElement.setAttribute('color-theme', 'dark');
         } else {
@@ -18,7 +21,7 @@ const Container = () => {
         }
 
         setTheme(!theme);
-    }
+    }, [theme])
 
     return (
         <div className="container">
@@ -28,10 +31,10 @@ const Container = () => {
                     <label htmlFor="theme">
                         <img className="theme_img" src={theme ? darkbulb : lightbulb}/>
                     </label>
-                    <Log scanRate={scanRate} />
+                    <Log scanRate={memoizedScanRate} />
                 </div>
                 <div className="keyboard_container">
-                    <KeyBoardControl setScanRate={setScanRate} />
+                    <KeyBoardControl setScanRate={onChangeScanRate} />
                 </div>
             </div>
         </div>

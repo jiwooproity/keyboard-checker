@@ -1,4 +1,4 @@
-import { CSSProperties } from "react";
+import { CSSProperties, memo } from "react";
 
 import Button from "@/common/Button";
 
@@ -37,4 +37,4 @@ KeyBoardRow.defaultProps = {
     style: {}
 }
 
-export default KeyBoardRow;
+export default memo(KeyBoardRow);
